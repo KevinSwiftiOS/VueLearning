@@ -60,3 +60,68 @@ v-bind用来绑定值，根据属性来找对应的值，在其中可以加一�
     <input type="button"  :value="title + '1'">
     <!--绑定值 可以用v-bind属性 缩略可以用:value来绑定-->
 ```
+### 视频9重点
+v-on用来绑定事件
+```
+  <input type="button"  :value="title + '1'" v-on:click = "alert">
+  //methods中方法的定义
+   //定义method方法 用来绑定v-on中的click事件
+          methods:{
+              alert:function () {
+                  alert(12345);
+              }
+          }
+```
+可以用缩小 @ 后面加上需要绑定的事件click即可 @click
+
+### 视频10重点
+#### 走马灯效果实现
+```
+<div id = "app">
+
+    <input type="button" value = "跑起来" @click="start">
+
+    <input type="button" value = "停下来" @click="stop">
+    <h3>{{msg}}</h3>
+
+</div>
+```
+method中方法定义
+``` 
+      //定义method方法 用来绑定v-on中的click事件
+    methods:{
+        //es6语法，直接使用括号函数
+        start(){
+            //避免重复执行定时器
+            if(this.interval != null)
+                return;
+            //设定计时器，es6箭头函数的效果是内部的this指向与外部相同。
+            //或者用that保存this
+            this.interval = setInterval(() => {
+                let start = this.msg.substring(0,1);
+                let end = this.msg.substring(1);
+                //重新拼凑字符串
+                this.msg = end + start;
+            },400);
+        },
+        stop(){
+            //清除计时器 计时器id设置为null
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+    }
+```
+es6中的箭头函数表示，可以使内部的this作用域指向与外部的相同。如果用function,外部需要定义一个
+```
+var that = this;
+```
+将that传入，才能访问data中的数据域。
+定义data中的计时器
+``` 
+data:{
+            msg:"欢迎学习Vue", //data返回数据源
+            interval:null //定时器
+        },
+```
+interval表示计时器
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        } /*当使用v-cloak属性的时候，当没有内容时，使用display:none将其设置为没有*/
+    </style>
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+
+    <input type="button" value = "跑起来" @click="start">
+
+    <input type="button" value = "停下来" @click="stop">
+    <h3>{{msg}}</h3>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue", //data返回数据源
+            interval:null //定时器
+        },
+        //定义method方法 用来绑定v-on中的click事件
+    methods:{
+        //es6语法，直接使用括号函数
+        start(){
+            //避免重复执行定时器
+            if(this.interval != null)
+                return;
+            //设定计时器，es6箭头函数的效果是内部的this指向与外部相同。
+            //或者用that保存this
+            this.interval = setInterval(() => {
+                let start = this.msg.substring(0,1);
+                let end = this.msg.substring(1);
+                //重新拼凑字符串
+                this.msg = end + start;
+            },400);
+        },
+        stop(){
+            //清除计时器 计时器id设置为null
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+    }
+    });
+</script>
+</body>
+</html>
