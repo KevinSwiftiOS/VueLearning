@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+<input type="text" v-model = "n1">
+    <select v-model = "opt">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <input type="text" v-model = "n2">
+    <input type="button" value="=" @click = "calc">
+    <input type="text" v-model="result">
+</div>
+<script>
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+           n1:0, //data返回数据源
+            n2:0,
+            result:0,
+            opt:"+"
+        },
+        methods:{
+            calc(){
+                //计算值得方法
+                this.result = 10;
+                //投机取巧的方式 将字符串转化成解析值
+                this.result = eval('Number(this.n1)' + this.opt + 'Number(this.n2)');
+            }
+        }
+    });
+</script>
+</body>
+</html>

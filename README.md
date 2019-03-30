@@ -124,4 +124,83 @@ data:{
         },
 ```
 interval表示计时器
+### 视频14重点
+v-model可以实现双向数据绑定，即从model层映射到view层，和从view层映射到model层,v-bind等属性都不能实现。
+v-model只能应用于表单元素，input中，例如select,input,text等。
+``` 
+ <!--双向数据绑定 只能应用在表单元素中 从model绑定到view 从view绑定到model 只有v-model才能实现双向数据绑定-->
+    <input type="text" v-model = "msg">
+```
+在data中的定义
+``` 
+  data:{
+            msg:"爱敲代码" //data返回数据源
+        }
+```
+### 视频15重点
+为元素绑定class属性。
+class的定义
+``` 
+.red{
+            color: red;
+        }
+        .thin{
+            font-weight: 200;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .active{
+            letter-spacing: 0.5em;
+        }
+```
+传统方法加载
+``` 
+ <!--传统方法-->
+    <h1 class="red thin">这是第一个h1标签</h1>
+```
+使用:class的方法加载 加载一个数组
+``` 
+  <!--第一种方式，直接传递一个数组过去-->
+    <h1 :class="['red','italic']">这是第二个h1标签</h1>
+```
+使用三元表达式,flag定义在data中
+``` 
+<!-- 可以使用三元表达式 当flag为true的时候才进行显示-->
+    <h1 :class="['red','italic',flag ?'active' :'']">这是第三个h1标签</h1>
+```
 
+简化三元表达式的表达
+``` 
+    <!-- 简化的方法 使用对象来代替三元表达式-->
+    <h1 :class = "['red','italic',{'active':flag}]">这是第四个h1表达式</h1>
+```
+可以直接使用对象来进行表示
+``` 
+   <!--可以直接使用对象-->
+    <h1 :class = "{red:true,italic:true,active:flag}">这是第5个h1标签</h1>
+```
+### 视频16重点
+为style绑定元素样式
+第一种方法 直接使用:style的方法
+``` 
+<h1 :style = "{color:'red','font-weight':'200'}">这是第一个h1标签</h1>
+```
+第二种传入一个对象
+``` 
+  <h1 :style = 'styleObj'>这是第二个h1标签</h1>
+  //定义styleObj对象
+   styleObj:{color:'red','font-weight':'200'},
+```
+第三种传入一个数组
+``` 
+    <h1 :style = '[styleObj,styleObj1]'>这是第三个h1标签</h1>
+```
+在data中定义对象
+``` 
+data:{
+            msg:"爱敲代码", //data返回数据源
+            styleObj:{color:'red','font-weight':'200'},
+            styleObj1:{'font-style':'italic'}
+        }
+```

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .red{
+            color: red;
+        }
+        .thin{
+            font-weight: 200;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .active{
+            letter-spacing: 0.5em;
+        }
+    </style>
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+   <!--传统方法-->
+    <h1 class="red thin">这是第一个h1标签</h1>
+    <!--第一种方式，直接传递一个数组过去-->
+    <h1 :class="['red','italic']">这是第二个h1标签</h1>
+<!-- 可以使用三元表达式 当flag为true的时候才进行显示-->
+    <h1 :class="['red','italic',flag ?'active' :'']">这是第三个h1标签</h1>
+    <!-- 简化的方法 使用对象来代替三元表达式-->
+    <h1 :class = "['red','italic',{'active':flag}]">这是第四个h1表达式</h1>
+   <!--可以直接使用对象-->
+    <h1 :class = "{red:true,italic:true,active:flag}">这是第5个h1标签</h1>
+</div>
+<script>
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            flag:false //data返回数据源
+        }
+    });
+</script>
+</body>
+</html>
