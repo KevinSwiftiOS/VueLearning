@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+   <!--循环普通数组-->
+    <!-- 循环简单数组 -->
+    <p v-for="(item,index) in list">索引：{{index}} -- 值：{{item}}</p><hr>
+    <!-- 循环对象数组 -->
+    <p v-for="user in list2">id:{{user.id}}--name:{{user.name}}</p><hr>
+    <!-- 遍历对象 -->
+    <p v-for="(val,key) in user">{{key}}:{{val}}</p><hr>
+  <!--迭代数字的时候是从1开始的-->
+    <p v-for="count in 10">这是第几次{{count}}次</p>
+
+</div>
+<script>
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+           list:[1,2,3,4,5], //普通对象
+            list2:[
+               {"id":1,"name":"ckq"},
+               {"id":2,"name":"cpp"},
+           ],
+            user:{
+               "key":1,
+                "value":"222"
+            }
+        }
+    });
+</script>
+</body>
+</html>

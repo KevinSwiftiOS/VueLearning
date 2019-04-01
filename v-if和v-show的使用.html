@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+    <!--v-if是每次都会新增删除元素 性能切换比较严重-->
+    <h3 v-if = "flag">使用v-if控制元素</h3>
+    <!--每次都不会重新进行dom新增删除操作， 只是切换元素的display的样式
+    有较高初始渲染消耗，
+    -->
+    <!--如果有频繁切换 用v-show-->
+    <h3 v-show = "flag">使用v-show控制元素</h3>
+    <button @click = "flag = !flag" value="切换">切换</button>
+</div>
+<script>
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+           flag:true
+        },
+        methods:{
+        toggle(){
+            this.flag = !this.flag;
+        }
+        }
+    });
+</script>
+</body>
+</html>

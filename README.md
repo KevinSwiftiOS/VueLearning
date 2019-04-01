@@ -204,3 +204,60 @@ data:{
             styleObj1:{'font-style':'italic'}
         }
 ```
+### 视频17重点
+v-for指令的4种使用方法
+普通的循环 和循环对象数组，循环对象，和自定义的累加
+``` 
+ <!--循环普通数组-->
+    <!-- 循环简单数组 -->
+    <p v-for="(item,index) in list">索引：{{index}} -- 值：{{item}}</p><hr>
+    <!-- 循环对象数组 -->
+    <p v-for="user in list2">id:{{user.id}}--name:{{user.name}}</p><hr>
+    <!-- 遍历对象 -->
+    <p v-for="(val,key) in user">{{key}}:{{val}}</p><hr>
+  <!--迭代数字的时候是从1开始的-->
+    <p v-for="count in 10">这是第几次{{count}}次</p>
+
+```
+data中数据的定义
+``` 
+ data:{
+           list:[1,2,3,4,5], //普通对象
+            list2:[
+               {"id":1,"name":"ckq"},
+               {"id":2,"name":"cpp"},
+           ],
+            user:{
+               "key":1,
+                "value":"222"
+            }
+        }
+```
+迭代数字时要注意的事项
+迭代数字的时候是从1开始的，而不是从0开始的。
+### 视频18重点
+v-for中的注意事项
+在vue2.2.0版本后，需要在v-for中每一个指定key对象。v-for指定key，key属性只能使用number或者string， 指定Key时，会按照key去进行查找，而不是按照顺序去查找，避免乱序的时候找不到对象。
+``` 
+<p v-for="item in list" :key="item.id">
+    <input type="checkbox">
+    {{item.id}}--
+    {{item.name}}
+</p>
+```
+### 视频19重点
+v-if和v-show的区别
+``` 
+  <!--v-if是每次都会新增删除元素 性能切换比较严重-->
+    <h3 v-if = "flag">使用v-if控制元素</h3>
+    <!--每次都不会重新进行dom新增删除操作， 只是切换元素的display的样式
+    有较高初始渲染消耗，
+    -->
+    <!--如果有频繁切换 用v-show-->
+    <h3 v-show = "flag">使用v-show控制元素</h3>
+    <button @click = "flag = !flag" value="切换">切换</button>
+```
+若click事件只有一条语句，则可以直接在click事件中定义。
+v-if每次都会新增删除元素 性能切换比较严重。
+v-show每次都不会重新进行dom新增删除操作， 只是切换元素的display的样式
+    有较高初始渲染消耗。在每次切换时只会修改display属性为none。或者存在即可。

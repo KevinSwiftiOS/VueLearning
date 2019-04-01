@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+    <div>
+        <label>Id
+        <input type="text" v-model = "id">
+        </label>
+
+        <label>Name
+            <input type="text" v-model = "name">
+        </label>
+
+        <input type="button" value="添加"@click = "add()">
+    </div>
+    <!--v-for指定key，key属性只能使用number或者string
+    指定Key时，会按照key去进行查找，而不是按照顺序去查找，
+    避免乱序的时候找不到对象。
+    -->
+<p v-for="item in list" :key="item.id">
+    <input type="checkbox">
+    {{item.id}}--
+    {{item.name}}
+</p>
+
+</div>
+<script>
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            id:'',
+            name:"",
+            list:[
+                {"id":1,"name":"ckq"},
+                {"id":2,"name":"cpp"},
+                {"id":3,"name":"ccc"},
+                {"id":4,"name":"ddd"},
+            ]
+        },
+        methods:{
+            add(){
+                this.list.unshift({
+                    id:this.id,
+                    name:this.name
+                })
+            }
+        }
+    });
+</script>
+</body>
+</html>
