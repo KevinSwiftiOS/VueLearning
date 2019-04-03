@@ -36,6 +36,14 @@
                 <input type="text" class="form-control" v-model = "name">
             </label>
             <input type="button" class="btn btn-primary" value="添加" @click = "add()">
+
+
+            <label>
+          搜索关键字
+                <input type="text" class="form-control" v-model = "keywords">
+
+            </label>
+            <input type="button" class="btn btn-primary" value="搜索" @click = "search()">
         </div>
     </div>
 
@@ -47,19 +55,45 @@
         <th>Operation</th>
         </thead>
         <tbody>
-        <tr v-for="item in list" :key = "item.id">
+        <tr v-for="item in search(keywords)" :key = "item.id">
             <!--同步渲染-->
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.ctime}}</td>
+            <td>{{item.ctime | dateFormat}}</td>
          <td>
              <a href = "" @click.prevent="del(item.id)">删除</a>
          </td>
         </tr>
         </tbody>
     </table>
+    <!--定义一个过滤器-->
+    <p>{{msg | msgFormat() | test }}</p>
 </div>
 <script>
+    //自定义全局过滤器 进行时间的格式化
+    Vue.filter('dateFormat',function (dataStr) {
+        var dt = new Date(dataStr);
+        //拿到年月 进行拼接
+        var y = dt.getFullYear();
+        console.log(y);
+        var m = dt.getMonth() + 1;
+        var d = dt.getDate();
+        //用占位符 进行站位输出
+        return `${y}-${m}-${d}`
+
+    })
+    //定义私有过滤器 msgFormat可以到处使用的
+    
+    //传入的参数 arg
+    Vue.filter('msgFormat',function (msg) {
+        //进行处理 写正则来处理 第一个参数是字符串或者是正则
+       return msg.replace(/单纯/g,"cc");
+    });
+    //定义第二个过滤器
+    Vue.filter('test',function (msg,arg) {
+        //进行处理 写正则来处理 第一个参数是字符串或者是正则
+        return msg + "===";
+    });
     //创建一个vue实例
     var vm = new Vue({
         el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
@@ -67,11 +101,12 @@
             id:"",
             name:"",
             flag:true,
+            keywords:"",
                 list:[
                     {id:1,name:'ckq',ctime:new Date()},
                     {id:2,name:'cpp',ctime:new Date()},
                 ],
-
+             msg:"单纯变成邪恶",
         },
         methods:{
            add(){
@@ -97,9 +132,39 @@
                 });
               console.log(index);
               this.list.splice(index,1);
+            },
+            //自定义search方法 查询
+            search(keywords){
+             var newList = [];
+               //把所有符合搜索的关键字保存到数组中，返回即可
+               this.list.forEach((item) => {
+                   if((item.name).indexOf(keywords) > -1)
+                       newList.push(item);
+               })
+            return newList;
+
+               //也可以用filter循环 some forEach findIndex等
+                //都会对数组中的每一项遍历进行操作
+                return this.list.filter(item => {
+                    if(item.name.includes(keywords)){
+                        return item;
+                    }
+
+                })
+            },
+        },
+        filters:{
+            //定义私有过滤器 过滤器有2个条件 过滤器名称和处理函数
+            dateFormat:function (msg,pattern) {
+                return "22334455";
             }
         }
     });
+    //过滤器的定义 第一个参数，数据，管道符传过来的数据
+    Vue.filter('过滤器的名称',function (data) {
+
+    })
 </script>
+<!--过滤器调用的格式 nameope是进行处理{{name | 过滤器的名称 nameope}}-->
 </body>
 </html>
