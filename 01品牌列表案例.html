@@ -40,7 +40,7 @@
 
             <label>
           搜索关键字
-                <input type="text" class="form-control" v-model = "keywords">
+                <input type="text" class="form-control" v-model = "keywords" v-focus>
 
             </label>
             <input type="button" class="btn btn-primary" value="搜索" @click = "search()">
@@ -93,6 +93,23 @@
     Vue.filter('test',function (msg,arg) {
         //进行处理 写正则来处理 第一个参数是字符串或者是正则
         return msg + "===";
+    });
+    //自定义全局指令
+    //其中 参数1 是指令的名称 在定义的时候，不需要加v- 但是在调用的时候要加v-
+    //参数2是对象，对象身上有指令相关的钩子函数,这些函数可以在特定的阶段执行，执行相关操作。
+    Vue.directive('focus', {
+        bind: function (el) { //当元素与指令绑定的时候触发 el表示绑定到哪个元素 还未插入到dom中。
+            //第一个参数永远是el,表示被绑定的元素,原生的js对象。
+            el.focus();
+
+        },
+        inserted: function (self) { //当元素插入到dom中的时候，触发。
+            //第一个参数永远是el,表示被绑定的元素,原生的js对象。
+            self.focus();
+        },
+        updated: function () { //当node 更新的时候，触发，可能会触发多次
+
+        }
     });
     //创建一个vue实例
     var vm = new Vue({
@@ -164,6 +181,7 @@
     Vue.filter('过滤器的名称',function (data) {
 
     })
+
 </script>
 <!--过滤器调用的格式 nameope是进行处理{{name | 过滤器的名称 nameope}}-->
 </body>
