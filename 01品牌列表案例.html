@@ -67,7 +67,7 @@
         </tbody>
     </table>
     <!--定义一个过滤器-->
-    <p>{{msg | msgFormat() | test }}</p>
+    <p v-fontweight="'800'" v-fontSiZe="'60'">{{msg | msgFormat() | test }}</p>
 </div>
 <script>
     //自定义全局过滤器 进行时间的格式化
@@ -83,7 +83,7 @@
 
     })
     //定义私有过滤器 msgFormat可以到处使用的
-    
+
     //传入的参数 arg
     Vue.filter('msgFormat',function (msg) {
         //进行处理 写正则来处理 第一个参数是字符串或者是正则
@@ -98,7 +98,7 @@
     //其中 参数1 是指令的名称 在定义的时候，不需要加v- 但是在调用的时候要加v-
     //参数2是对象，对象身上有指令相关的钩子函数,这些函数可以在特定的阶段执行，执行相关操作。
     Vue.directive('focus', {
-        bind: function (el) { //当元素与指令绑定的时候触发 el表示绑定到哪个元素 还未插入到dom中。
+        bind: function (el,binding) { //当元素与指令绑定的时候触发 el表示绑定到哪个元素 还未插入到dom中。
             //第一个参数永远是el,表示被绑定的元素,原生的js对象。
             el.focus();
 
@@ -174,6 +174,18 @@
             //定义私有过滤器 过滤器有2个条件 过滤器名称和处理函数
             dateFormat:function (msg,pattern) {
                 return "22334455";
+            }
+        },
+        //定义私有指令
+        directives: {
+            // 设置字体加粗
+            'fontweight': {
+                bind: function (el, binding) {
+                    el.style.fontWeight = binding.value
+                }
+            },
+            'fontsize':function (el,binding) {
+                el.style.fontSize = parseInt(binding.value) + 'px';
             }
         }
     });

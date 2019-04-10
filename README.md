@@ -318,3 +318,28 @@ v-show每次都不会重新进行dom新增删除操作， 只是切换元素的d
  <input type="text" class="form-control" v-model = "keywords" v-focus>
            </label>
 ```
+### 视频35重点
+指令中传入binding,表示指令中传入的值等一些其他表达式。
+``` 
+ //定义私有指令
+        directives: {
+            // 设置字体加粗
+            'fontweight': {
+                bind: function (el, binding) {
+                    el.style.fontWeight = binding.value
+                }
+            },
+```
+可以使用function来简写，表示直接绑定到bind和update函数中。
+``` 
+ 'fontsize':function (el,binding) {
+                el.style.fontSize = parseInt(binding.value) + 'px';
+            }
+        }
+```
+在元素中传参
+``` 
+  <p v-fontweight="'800'" v-fontsize="'60'">{{msg | msgFormat() | test }}</p>
+```
+传入的fontweight是800 size是60
+**指令的定义都是小写，调用时候可以用大写**
