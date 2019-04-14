@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+    <!--使用组件 直接以html标签形式引入-->
+    <mycom1></mycom1>
+</div>
+<script>
+    //使用vue.extend创建全局组件
+    var com1 = Vue.extend({
+        template:'<h3>这是使用vue.extend创建的组件</h3>',//通过template属性，规定了组件所需要展示的html结构
+
+    })
+    //使用组件，组件名称使用驼峰 引用时 my-com1 否则就一般使用mycom1
+    //1.2 使用vue.component 组件名称 创建出来的组件模板对象 会展示com1模板里的内容
+    Vue.component('mycom1',com1);
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            flag:true
+        },
+        methods:{
+            toggle(){
+                this.flag = !this.flag;
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -352,3 +352,18 @@ beforeCreate:表示实例完全被创建之前和调用。data和method中的数
 created:第二个生命周期函数，data和method的数据都已经被初始化。如果调用method方法或数据，要在create中使用。
 beforeMount:放到页面(挂载到页面之前)
 mouted:挂载到页面中去。mouted 表示已经完全被创建完。
+### 视频55重点
+跳过了动画部分，定义组件的使用。
+1.使用全局组件的方式。
+``` 
+ //使用vue.extend创建全局组件
+    var com1 = Vue.extend({
+        template:'<h3>这是使用vue.extend创建的组件</h3>',//通过template属性，规定了组件所需要展示的html结构
+
+    })
+    //使用组件，组件名称使用驼峰 引用时 my-com1 否则就一般使用mycom1
+    //1.2 使用vue.component 组件名称 创建出来的组件模板对象 会展示com1模板里的内容
+    Vue.component('mycom1',com1);
+```
+使用vue.extend来定义组件，随后template是要展示的html格式内容。然后使用vue.component来注册组件，将com1注册进去，若使用了myCom1驼峰命名法，则在html
+中采用如下方法引用<my-com1></my-com1>，若采用的是mycom1,则用<mycom1></mycom1>这种即可。在html当中的引用需注意。
