@@ -367,3 +367,57 @@ mouted:挂载到页面中去。mouted 表示已经完全被创建完。
 ```
 使用vue.extend来定义组件，随后template是要展示的html格式内容。然后使用vue.component来注册组件，将com1注册进去，若使用了myCom1驼峰命名法，则在html
 中采用如下方法引用<my-com1></my-com1>，若采用的是mycom1,则用<mycom1></mycom1>这种即可。在html当中的引用需注意。
+### 视频56重点
+组件的自定义使用，使用vue.component，随后定义字典中的相关值，通过key-value使用
+``` 
+ //直接通过对象创建
+    Vue.component('mycom2',{
+        template: '<h3>这是直接使用</h3>'
+    });
+    Vue.component('mycom3',{
+        template:'#tmpl'
+    })
+```
+或者将template对应的id写到外部去，template对应一个id即可。
+``` 
+<!--v层-->
+<div id = "app">
+    <!--使用组件 直接以html标签形式引入-->
+    <mycom1></mycom1>
+    <mycom2></mycom2>
+    <mycom3></mycom3>
+    <login></login>
+</div>
+<template id = "tmpl">
+    <div>
+        <h1>ccccc</h1>
+    </div>
+</template>
+```
+在外部的定义。这样可以有自动提示的功能。
+在vue一个实例内部定义私有组件
+``` 
+  //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            flag:true
+        },
+        methods:{
+            toggle(){
+                this.flag = !this.flag;
+            }
+        },
+        //定义实例内部私有组件
+        components:{
+            login:{
+                template:'<h1>这是私有的Login</h1>'
+            }
+        }
+    });
+```
+是使用复数，就表示是内部私有的，不能喝外部共享，使用也通过
+``` 
+<login></login>
+```
+即可。

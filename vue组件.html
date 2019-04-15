@@ -13,9 +13,17 @@
 <div id = "app">
     <!--使用组件 直接以html标签形式引入-->
     <mycom1></mycom1>
+    <mycom2></mycom2>
+    <mycom3></mycom3>
+    <login></login>
 </div>
+<template id = "tmpl">
+    <div>
+        <h1>ccccc</h1>
+    </div>
+</template>
 <script>
-    //使用vue.extend创建全局组件
+    //使用vue.extend创建全局组件 组件只能包含一个根元素
     var com1 = Vue.extend({
         template:'<h3>这是使用vue.extend创建的组件</h3>',//通过template属性，规定了组件所需要展示的html结构
 
@@ -23,6 +31,13 @@
     //使用组件，组件名称使用驼峰 引用时 my-com1 否则就一般使用mycom1
     //1.2 使用vue.component 组件名称 创建出来的组件模板对象 会展示com1模板里的内容
     Vue.component('mycom1',com1);
+    //直接通过对象创建
+    Vue.component('mycom2',{
+        template: '<h3>这是直接使用</h3>'
+    });
+    Vue.component('mycom3',{
+        template:'#tmpl'
+    })
     //创建一个vue实例
     var vm = new Vue({
         el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
@@ -33,8 +48,15 @@
             toggle(){
                 this.flag = !this.flag;
             }
+        },
+        //定义实例内部私有组件
+        components:{
+            login:{
+                template:'<h1>这是私有的Login</h1>'
+            }
         }
     });
+
 </script>
 </body>
 </html>
