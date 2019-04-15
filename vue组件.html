@@ -16,10 +16,19 @@
     <mycom2></mycom2>
     <mycom3></mycom3>
     <login></login>
+    <counter></counter>
+    <counter></counter>
+    <counter></counter>
 </div>
 <template id = "tmpl">
     <div>
         <h1>ccccc</h1>
+    </div>
+</template>
+<template id = "tmp">
+    <div>
+    {{cnt}} 计数器
+    <button @click = "increment()">增加</button>
     </div>
 </template>
 <script>
@@ -28,6 +37,21 @@
         template:'<h3>这是使用vue.extend创建的组件</h3>',//通过template属性，规定了组件所需要展示的html结构
 
     })
+    var dataObj = {cnt:0};
+    Vue.component('counter',{
+        template:"#tmp",
+        data:function () {
+            return {cnt:0};
+        },
+        methods:{
+            increment(){
+                this.cnt++;
+            }
+        }
+    });
+
+
+
     //使用组件，组件名称使用驼峰 引用时 my-com1 否则就一般使用mycom1
     //1.2 使用vue.component 组件名称 创建出来的组件模板对象 会展示com1模板里的内容
     Vue.component('mycom1',com1);
@@ -42,6 +66,7 @@
        };
         }
     });
+
     Vue.component('mycom3',{
         template:'#tmpl',
 
