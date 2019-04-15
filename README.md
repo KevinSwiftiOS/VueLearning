@@ -421,3 +421,20 @@ mouted:挂载到页面中去。mouted 表示已经完全被创建完。
 <login></login>
 ```
 即可。
+### 视频59重点
+组件中data的使用
+data必须是一个function,而且在function内部必须返回一个对象。这是与Vue实例中data不一样的地方。
+``` 
+    Vue.component('mycom2',{
+        template: '<h3>这是直接使用 {{msg}}</h3>',
+        //组件中的data必须是一个方法，function,不像vue实例中是一个对象，而且在组件的data方法中，必须返回一个对象
+        //组件中的data与实例中的data使用方式完全一样
+        data:function () {
+       return {
+           "msg":"ckq"
+       };
+        }
+    });
+
+```
+使用的方法相同，依然是通过{{}}来调用。

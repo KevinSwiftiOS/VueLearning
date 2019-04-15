@@ -33,10 +33,18 @@
     Vue.component('mycom1',com1);
     //直接通过对象创建
     Vue.component('mycom2',{
-        template: '<h3>这是直接使用</h3>'
+        template: '<h3>这是直接使用 {{msg}}</h3>',
+        //组件中的data必须是一个方法，function,不像vue实例中是一个对象，而且在组件的data方法中，必须返回一个对象
+        //组件中的data与实例中的data使用方式完全一样
+        data:function () {
+       return {
+           "msg":"ckq"
+       };
+        }
     });
     Vue.component('mycom3',{
-        template:'#tmpl'
+        template:'#tmpl',
+
     })
     //创建一个vue实例
     var vm = new Vue({
