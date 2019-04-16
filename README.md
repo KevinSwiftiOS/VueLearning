@@ -469,3 +469,39 @@ data必须是一个function,而且在function内部必须返回一个对象。�
     });
 
 ```
+### 视频61重点
+vue组件的切换
+通过标识符flag进行组件切换
+``` 
+    <a href="" @click.prevent="flag=true">登录</a>
+    <a href="" @click.prevent="flag=false">注册</a>
+    <login v-if="flag"></login>
+    <register v-else="flag"></register>
+    <hr>
+```
+定义组件
+``` 
+ Vue.component('login',{
+        template:'<h3>登录组件</h3>'
+    })
+    Vue.component('register',{
+        template:'<h3>注册组件</h3>'
+    })
+```
+或者使用vue提供的component组件，在组件中定义id,来实现加载对应的组件，切换时只要变换id的值即可。
+``` 
+    <h2>使用component元素切换组件</h2>
+    <!--component也是vue提供的-->
+    <a href="" @click.prevent="componentId='login'">登录</a>
+    <a href="" @click.prevent="componentId='register'">注册</a>
+    <!-- component是一个占位符，:is属性，可以用来指定要展示的组件名称 -->
+    <component :is="componentId"></component>
+    <component :is="'login'"></component>
+```
+data中flag与id的定义
+``` 
+ data:{
+            flag:true,
+            componentId:'login'
+        },
+```
