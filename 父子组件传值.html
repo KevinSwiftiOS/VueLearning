@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+    <cmt-box></cmt-box>
+    <ul class="list-group">
+        <li class="list-group-item" v-for="item in list" :key="item.id">
+            <span class="badge">评论人： {{item.user}}</span>
+            {{item.content}}
+        </li>
+    </ul>
+</div>
+<template id = "tmpl">
+    <div>
+<div class="form-group">
+    <label>评论人:</label>
+    <input type="text" class="form-control" v-model = "user">
+</div>
+
+        <div class="form-group">
+            <label>评论内容:</label>
+           <textarea class="form-control" v-model = "content"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="button" value="发表评论" class="btn btn-primary" @click = "postComment">
+        </div>
+    </div>
+
+</template>
+<script>
+    var commentBox = {
+        template:'#tmpl',
+        data(){
+            return{
+                user:'',
+                content:''
+}
+
+        },
+        methods:{
+            postComment(){
+                let comment = {id:Date.now(),user:this.user,content:this.content}
+                // 从localStorage中获取评论
+                let list = JSON.parse(localStorage.getItem('cmts') || "[]")
+                list.unshift(comment)
+                // 重新保存
+                localStorage.setItem('cmts',JSON.stringify(list))
+                this.user = ''
+                this.content = ''
+
+            }
+
+        }
+    }
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue", //data返回数据源
+            list:[
+                {id:Date.now(),user:'礼拜',content:'天生我材必有用'},
+                {id:Date.now(),user:'江小白',content:'劝君更尽一杯酒'},
+                {id:Date.now(),user:'小马',content:'我姓马'},
+            ]
+        },
+        components:{
+            'cmt-box':commentBox
+        }
+    });
+</script>
+</body>
+</html>
