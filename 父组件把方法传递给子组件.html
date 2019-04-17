@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+    <p>{{msg}}</p>
+    <com2 @func123="show"></com2>
+</div>
+<template id = "tmpl">
+    <div>
+        <!--父组件向子组件传递方法，采用事件绑定机制
+        自定义一个事件属性之后，子组件通过某些方式，来调用这个传递进去
+        的方法
+        -->
+        <h1>这是子组件</h1>
+        <input type="button" value="子组件中的按钮，点击，触发父组件传递过来的func" @click = "myclick">
+    </div>
+</template>
+<script>
+    var com2 = {
+        template:'#tmpl',
+        data(){
+          return{
+              msg:{name:"ckq","age":18}
+          }
+        },
+        methods: {
+        myclick(){
+          //  alert(22);
+            //当点击子组件按钮时，如何拿到父组件传递过来的方法 并且调用。
+            this.$emit('func123',this.msg); //emit代表触发。调用 第二个参数是传参
+        }
+        }
+
+    }
+
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue" //data返回数据源
+        },
+        methods:{
+            show(data){
+console.log("调用了父组件身上的show方法" + data);
+            }
+        },
+        components:{
+            com2:com2
+        }
+    });
+</script>
+</body>
+</html>

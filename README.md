@@ -526,3 +526,71 @@ data中flag与id的定义
         }
 ```
 在子组件中通过props定义从父组件传递过来的值，props中通过数组形式进行添加。经过实验，**子组件只能修改自己的data中的属性的值,而不能修改从父组件传递过来的props中的值。**
+### 视频67重点
+子组件调用父组件传过来的方法，父组件把方法传递给子组件
+父组件中定义方法
+``` 
+  //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue" //data返回数据源
+        },
+        methods:{
+            show(data){
+console.log("调用了父组件身上的show方法" + data);
+            }
+        },
+        components:{
+            com2:com2
+        }
+    });
+```
+在组件中定义子组件com2
+``` 
+ var com2 = {
+        template:'#tmpl',
+        }
+```
+随后在组件中传递方法
+``` 
+<!--v层-->
+<div id = "app">
+    <p>{{msg}}</p>
+    <com2 @func123="show"></com2>
+</div>
+```
+通过@func123 将父组件中的show方法传递给子组件
+子组件中调用func123方法
+``` 
+<template id = "tmpl">
+    <div>
+        <!--父组件向子组件传递方法，采用事件绑定机制
+        自定义一个事件属性之后，子组件通过某些方式，来调用这个传递进去
+        的方法
+        -->
+        <h1>这是子组件</h1>
+        <input type="button" value="子组件中的按钮，点击，触发父组件传递过来的func" @click = "myclick">
+    </div>
+</template>
+```
+在myclick中，通过emit事件触发从父组件传过来的事件
+``` 
+ var com2 = {
+        template:'#tmpl',
+        data(){
+          return{
+              msg:{name:"ckq","age":18}
+          }
+        },
+        methods: {
+        myclick(){
+          //  alert(22);
+            //当点击子组件按钮时，如何拿到父组件传递过来的方法 并且调用。
+            this.$emit('func123',this.msg); //emit代表触发。调用 第二个参数是传参
+        }
+        }
+
+    }
+```
+如果想传递参数的话，则通过在emit后加其他参数传递过去即可。
