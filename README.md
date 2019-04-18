@@ -697,3 +697,66 @@ vue-router的使用
     <router-view></router-view>
 ```
 这样路由方法便实现生效了。
+### 视频75重点
+当加载根路径的时候，默认加载到login组件的使用。
+``` 
+  //在new过程中，传递配置对象
+    var routerObj = new VueRouter({
+        routes:[
+            {path:'/',redirect:'/login'}, //重定向
+            {
+             path:'/register',
+                component:register
+            },
+            {path:'/login',
+             component:login //必须放组件模板对象，不能是组件引用名称。
+            }   //是个对象，哪个路由地址，属性2是component 匹配到的对应组件   //是一个数组
+        ], //这个配
+```
+可以使用重定向，redirect,当加载'/'的时候，加载到login对应的组件。
+可以使用router-link代替a标签来表示跳转
+```
+   <router-link to = "/login" tag = "span">登</router-link>
+    <router-link to = "/register">注册</router-link>
+```
+tag表示用span来代替a.
+### 视频76重点
+当点击登录时，默认登录时候的那个路由高亮。所以，可以使用vue-router提供的router-link-active,修改其样式即可。或者使用自定义class.
+```
+ .router-link-active{
+            color: red;
+            font-weight: 800;
+            font-style: italic;
+            font-size: 80px;
+            text-decoration: underline;
+            background-color: green;
+        }
+```
+在new VueRouter的时候修改router-link-active样式的名称。
+``` 
+    var routerObj = new VueRouter({
+        routes:[
+            {path:'/',redirect:'/login'}, //重定向
+            {
+             path:'/register',
+                component:register
+            },
+            {path:'/login',
+             component:login //必须放组件模板对象，不能是组件引用名称。
+            }   //是个对象，哪个路由地址，属性2是component 匹配到的对应组件   //是一个数组
+        ], //这个配置对象中的route表示路由匹配规则
+     linkActiveClass:'myactive'
+    });
+```
+linkActiveClass改成我们自己的即可。
+``` 
+   .myactive{
+            color: red;
+            font-weight: 800;
+            font-style: italic;
+            font-size: 80px;
+            text-decoration: underline;
+            background-color: green;
+        }
+```
+这样也可以实现在切换的时候高亮显示。

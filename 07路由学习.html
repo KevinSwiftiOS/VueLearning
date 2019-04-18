@@ -5,14 +5,24 @@
     </style>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .myactive{
+            color: red;
+            font-weight: 800;
+            font-style: italic;
+            font-size: 80px;
+            text-decoration: underline;
+            background-color: green;
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 </head>
 <body>
 <!--v层-->
 <div id = "app">
-    <a href="#/login">登录</a>
-    <a href="#/register">注册</a>
+    <router-link to = "/login" tag = "span">登</router-link>
+    <router-link to = "/register">注册</router-link>
     <p>{{msg}}</p>
     <!--当做占位符的，路由规则，当匹配到的时候，就展示对应的组件-->
     <router-view></router-view>
@@ -31,6 +41,7 @@
     //在new过程中，传递配置对象
     var routerObj = new VueRouter({
         routes:[
+            {path:'/',redirect:'/login'}, //重定向
             {
              path:'/register',
                 component:register
@@ -38,7 +49,8 @@
             {path:'/login',
              component:login //必须放组件模板对象，不能是组件引用名称。
             }   //是个对象，哪个路由地址，属性2是component 匹配到的对应组件   //是一个数组
-        ] //这个配置对象中的route表示路由匹配规则
+        ], //这个配置对象中的route表示路由匹配规则
+     linkActiveClass:'myactive'
     });
     //创建一个vue实例
     var vm = new Vue({
