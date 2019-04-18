@@ -637,3 +637,63 @@ var login = {
         }
     }
 ```
+### 视频73重点
+vue-router的使用
+首先引入vue-router的文件
+``` 
+ <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+```
+定义vue-router的对象
+``` 
+ //2.创建一个路由对象
+    //当导入包之后，在window全局对象中就有window构造函数
+    //在new过程中，传递配置对象
+    var routerObj = new VueRouter({
+        routes:[
+            {
+             path:'/register',
+                component:register
+            },
+            {path:'/login',
+             component:login //必须放组件模板对象，不能是组件引用名称。
+            }   //是个对象，哪个路由地址，属性2是component 匹配到的对应组件   //是一个数组
+        ] //这个配置对象中的route表示路由匹配规则
+    });
+```
+定义一个routerObj对象，其对应的path对应一个单独的组件。所以我们要定义login和register组件。
+``` 
+  //创建组件
+    var login = {
+        template:'<h1>登录组件</h1>'
+    };
+    var register = {
+        template: '<h1>注册组件</h1>'
+    }
+```
+在vue实例中使用我们定义的路由对象
+``` 
+ //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue" //data返回数据源
+        },
+        router:routerObj //将路由规则对象注册到vm实例上，检测url变化，展示对应组件
+    });
+
+```
+和其他data，method等相同，有一个router对象。
+随后将router-view添加到组件中，可以表示一个占位符，表示根据对应的路由加载对应的组件
+```
+ <!--当做占位符的，路由规则，当匹配到的时候，就展示对应的组件-->
+    <router-view></router-view>
+```
+可以添加一个a对象，来切换不同的路由，不同的路由切换导致了加载不同的组件。
+``` 
+    <a href="#/login">登录</a>
+    <a href="#/register">注册</a>
+    <p>{{msg}}</p>
+    <!--当做占位符的，路由规则，当匹配到的时候，就展示对应的组件-->
+    <router-view></router-view>
+```
+这样路由方法便实现生效了。
