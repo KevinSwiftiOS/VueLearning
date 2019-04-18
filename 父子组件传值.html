@@ -18,7 +18,7 @@
 <body>
 <!--v层-->
 <div id = "app">
-    <cmt-box></cmt-box>
+    <cmt-box @func = "loadComments"></cmt-box>
     <ul class="list-group">
         <li class="list-group-item" v-for="item in list" :key="item.id">
             <span class="badge">评论人： {{item.user}}</span>
@@ -61,10 +61,12 @@
                 list.unshift(comment)
                 // 重新保存
                 localStorage.setItem('cmts',JSON.stringify(list))
-                this.user = ''
-                this.content = ''
+                this.user = '';
+                this.content = '';
+               this.$emit('func');//触发
 
-            }
+            },
+
 
         }
     }
@@ -78,6 +80,17 @@
                 {id:Date.now(),user:'江小白',content:'劝君更尽一杯酒'},
                 {id:Date.now(),user:'小马',content:'我姓马'},
             ]
+        },
+        methods:{
+            loadComments(){
+                //从本地localStorage中加载评论列表
+                var list = JSON.parse(localStorage.getItem("cmts") || '[]');
+                this.list = list
+            },
+        },
+
+        created(){
+          this.loadComments();
         },
         components:{
             'cmt-box':commentBox

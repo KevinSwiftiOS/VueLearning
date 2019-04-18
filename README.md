@@ -594,3 +594,46 @@ console.log("调用了父组件身上的show方法" + data);
     }
 ```
 如果想传递参数的话，则通过在emit后加其他参数传递过去即可。
+### 视频70重点 
+通过ref获取html元素
+通过ref绑定h3元素
+```
+ <h3 ref = "myh3">今天天气很好!!!</h3>
+```
+随后在vue实例中便会有ref属性。可以通过this.$refs.myh3获取。组件方式也可以同样获取。
+``` 
+ //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue" //data返回数据源
+        },
+        methods:{
+            getElement(){
+                //获取dom元素
+                console.log(this.$refs.myh3.innerText);
+                console.log(this.$refs.myLogin.msg);
+            }
+        },
+        components:{
+            login
+        }
+    });
+```
+通过login组件也可以获取其对应的data和methods中的方法。
+```
+var login = {
+        template:'<h1>登录组件</h1>',
+        data(){
+            return {
+                msg:"son mosg",
+            }
+
+        },
+        methods:{
+            show(){
+                console.log("调用了子组件方法");
+            }
+        }
+    }
+```
