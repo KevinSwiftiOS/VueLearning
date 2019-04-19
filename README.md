@@ -791,4 +791,4 @@ linkActiveClass改成我们自己的即可。
 
     };
 ```
-通过this.$route.query.name获取name和id.
+通过this.$route.query.name获取name和id.学习
