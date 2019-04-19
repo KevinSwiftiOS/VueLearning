@@ -760,3 +760,35 @@ linkActiveClass改成我们自己的即可。
         }
 ```
 这样也可以实现在切换的时候高亮显示。
+### 视频78重点
+在url路径中传参
+``` 
+<!--v层-->
+<div id = "app">
+    <!--路由中查询字符串，不需要改变路由规则-->
+    <router-link to = "/login?id=10&name='张三'" tag = "span">登</router-link>
+    <router-link to = "/register">注册</router-link>
+    <p>{{msg}}</p>
+    <!--当做占位符的，路由规则，当匹配到的时候，就展示对应的组件-->
+    <router-view></router-view>
+</div>
+```
+可以用login?id=10&name=张三 这种来进行传递
+随后通过$route属性获取对应的id和name的值。
+``` 
+    //创建组件
+    var login = {
+        template:'<h1>登录组件---{{$route.query.id}}</h1>',
+        data(){
+            return {
+                msg:'123'
+            }
+        },
+        created(){
+            //组件的生命周期函数 获取参数
+          console.log(this.$route.query.name);
+        }
+
+    };
+```
+通过this.$route.query.name获取name和id.
