@@ -30,6 +30,7 @@
         <h1>这是account 组件</h1>
         <router-link to = "/account/login">登录</router-link>
        <router-link to = "/account/register">注册</router-link>
+    <router-view></router-view>
     </div>
 </template>
 <script>
@@ -39,12 +40,18 @@
   };
   var login = {
       template: '<h1>登录</h1>'
+  };
+  var register = {
+      template:'<h1>注册</h1>'
   }
   var router = new VueRouter({
       routes:[
           {path:'/account',component:account,
           children:[
-              {path:'login',component: login}
+              //不带杠表示 以account去匹配剩下的
+              //方便用户理解url地址
+              {path:'login',component: login},
+              {path:'register',component: register}
           ]
           }
       ]
@@ -59,7 +66,7 @@
         data:{
             msg:"欢迎学习Vue" //data返回数据源
         },
-        router:router //将路由规则对象注册到vm实例上，检测url变化，展示对应组件
+    router //将路由规则对象注册到vm实例上，检测url变化，展示对应组件
     });
 
 </script>

@@ -792,3 +792,70 @@ linkActiveClass改成我们自己的即可。
     };
 ```
 通过this.$route.query.name获取name和id.学习
+### 视频79重点
+通过param参数获取对应的id
+``` 
+ //在new过程中，传递配置对象
+    var routerObj = new VueRouter({
+        routes:[
+            {path:'/',redirect:'/login'}, //重定向
+            {
+                path:'/register',
+                component:register
+            },
+            {path:'/login/:id',
+                component:login //必须放组件模板对象，不能是组件引用名称。
+            }   //是个对象，哪个路由地址，属性2是component 匹配到的对应组件   //是一个数组
+        ], //这个配置对象中的route表示路由匹配规则
+        linkActiveClass:'myactive'
+    });
+```
+在path中的定义是/login/:id这种方式来定义路由
+随后在进行跳转的url为。
+``` 
+<router-link to = "/login/12" tag = "span">登</router-link>
+    <router-link to = "/register">注册</router-link>
+```
+可以通过this.$route.params.id获取
+### 视频80重点
+定义子视图，可以通过children属性定义。
+``` 
+  var router = new VueRouter({
+      routes:[
+          {path:'/account',component:account,
+          children:[
+              //不带杠表示 以account去匹配剩下的
+              //方便用户理解url地址
+              {path:'login',component: login},
+              {path:'register',component: register}
+          ]
+          }
+      ]
+  });
+
+```
+表示login是account的子组件，访问的时候通过/account/login进行访问。
+在子路由中视图的定义
+``` 
+<template id = "tmpl">
+    <div>
+        <h1>这是account 组件</h1>
+        <router-link to = "/account/login">登录</router-link>
+       <router-link to = "/account/register">注册</router-link>
+    <router-view></router-view>
+    </div>
+</template>
+```
+通过router-link to = "/account/login"跳转
+因此父组件中有一个router-view
+在定义子组件的template时，也要定义router-view
+``` 
+<template id = "tmpl">
+    <div>
+        <h1>这是account 组件</h1>
+        <router-link to = "/account/login">登录</router-link>
+       <router-link to = "/account/register">注册</router-link>
+    <router-view></router-view>
+    </div>
+</template>
+```
