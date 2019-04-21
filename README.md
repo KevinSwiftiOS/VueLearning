@@ -859,3 +859,54 @@ linkActiveClass改成我们自己的即可。
     </div>
 </template>
 ```
+### 视频82重点
+路由命名视图，在3个router-view中加载不同的组件。
+``` 
+<!--v层-->
+<div id = "app">
+<router-view></router-view>
+    <div class="container">
+    <router-view name = "left"></router-view>
+    <router-view name = "main"></router-view>
+    </div>
+</div>
+```
+router-view 不设置name，默认显示根组件，随后以下的两个router-view，根据name加载对应的组件。
+```
+var header = {
+    template:'<h1 class="header">Header头部区域</h1>'
+};
+var leftBox = {
+    template: "<h1 class='left'>left侧边栏区域</h1>"
+};
+var mainBox = {
+    template:'<h1 class="main">main主体区域</h1>'
+}
+```
+组件定义
+router路由的定义，设置不同的name
+```
+    var router = new VueRouter({
+        routes:[
+            //定义多个组件
+            {path:"/",components: {
+                    "default": header,
+                    "left": leftBox,
+                    "main": mainBox
+                }
+            },
+
+        ]
+    });
+```
+随后在vue实例中加载对应的路由
+``` 
+var vue = new Vue({
+    el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+    data:{
+        msg:"欢迎学习Vue" //data返回数据源
+    },
+    router //将路由规则对象注册到vm实例上，检测url变化，展示对应组件
+});
+
+```

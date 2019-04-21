@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+  <com1 v-bind:parentmsg = "msg" @func = "getMsg"></com1>
+
+</div>
+<template id = "tmpl">
+    <div>
+        <h1>这是子元素{{parentmsg}}</h1>
+    </div>
+    <input type="button" value="传递" @click = "sendMsg">
+</template>
+<script>
+
+  var com1 = {
+      template:"tmpl",
+      props:['parentmsg'],
+      data(){
+          return {
+              msg:"孝顺的汉子"
+          }
+      },
+      methods:{
+          sendMsg(){
+              this.$emit('func',this.msg);
+          }
+      }
+  }
+    var vue = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue", //data返回数据源
+            msgFromSon:''
+        },
+        methods:{
+            getMsg(data){
+                this.msgFromSon = data;
+            }
+        },
+    //    router //将路由规则对象注册到vm实例上，检测url变化，展示对应组件
+   components: {
+       com1
+   }
+    });
+
+
+
+</script>
+</body>
+</html>
