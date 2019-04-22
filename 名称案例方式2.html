@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+    <input type="text" v-model = "firstname"> +
+    <input type="text" v-model = "lastname"> =
+    <input type="text" v-model = "fullname">
+</div>
+<script>
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue", //data返回数据源
+            firstname:"",
+            lastname:"",
+            fullname:""
+        },
+        //监听到文本框的数据改变
+        methods:{
+            getfullname(){
+                this.fullname = this.firstname + "-" +  this.lastname;
+            }
+        },
+        watch: {
+            //使用这个属性 可以监听data中指定数据的变化，然后触发watch中对应的function的处理函数
+            firstname: function (newVal, oldVal) {
+                console.log(newVal);//新的值
+                console.log(oldVal);//老的值
+                //监视firstname
+                console.log("监视到了firstname变化");
+                this.fullname = this.firstname + this.lastname;
+
+            }
+        },
+        watch:{
+            //this.$route.path 监听这个属性
+            '$route.path':function (newVal,oldVal) {
+                
+            }
+        }
+
+    });
+</script>
+</body>
+</html>

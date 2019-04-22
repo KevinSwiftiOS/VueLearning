@@ -910,3 +910,38 @@ var vue = new Vue({
 });
 
 ```
+### 视频86重点
+使用watch来监听input中v-model的变化。
+``` 
+  methods:{
+            getfullname(){
+                this.fullname = this.firstname + "-" +  this.lastname;
+            }
+        },
+        watch: {
+            //使用这个属性 可以监听data中指定数据的变化，然后触发watch中对应的function的处理函数
+            firstname: function (newVal, oldVal) {
+                console.log(newVal);//新的值
+                console.log(oldVal);//老的值
+                //监视firstname
+                console.log("监视到了firstname变化");
+                this.fullname = this.firstname + this.lastname;
+
+            }
+        },
+```
+监听data中属性的变化，当data中值发生变化时，立即触发firstname中对应的函数，可以拿到oldVal和newVal,进行相应的操作
+### 视频87重点
+可以用watch监听对应的$route，当路由一旦发生变化，就做相应的操作。
+``` 
+   watch:{
+            //this.$route.path 监听这个属性
+            '$route.path':function (newVal,oldVal) {
+                
+            }
+        }
+```
+
+
+
+
