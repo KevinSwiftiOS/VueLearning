@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<!--v层-->
+<div id = "app">
+    <input type="text" v-model = "firstname" @keyup = "getfullname"> +
+    <input type="text" v-model = "lastname"> =
+    <input type="text" v-model = "fullname">
+</div>
+<script>
+    //创建一个vue实例
+    var vm = new Vue({
+        el:"#app", //表示绑定的vue实例 要控制的是哪一个区域
+        data:{
+            msg:"欢迎学习Vue", //data返回数据源
+            firstname:"",
+            lastname:""
+        },
+        //监听到文本框的数据改变
+        methods:{
+            getfullname(){
+                this.fullname = this.firstname + "-" +  this.lastname;
+            }
+        },
+        //用计算型属性 计算属性的本质就是一个方法 只不过我们再使用这些计算属性的时候，是把他们的名称，直接当做属性来使用的
+        //并不会把计算型属性当做方法来使用
+      computed:{
+            //1.注意，计算属性，在引用的时候，一定不要加(),在使用的时候，直接当做普通属性去使用即可。
+            //2.计算属性内部function用到的任何数据发生变化，就会重新计算属性的值。
+            //3.计算属性的求值结果会被缓存起来，方便下次调用。
+           'fullname':function () {
+                return this.firstname + "-" + this.lastname;
+            }
+            //计算属性和watch区别,计算属性内部得return一个值，watch不需要。
+          //methods 中 computed结果缓存。
+      }
+ //nrm提供常用的下载包地址，并让我们在这几个地址之间切换 每次装包的时候，使用的装包工具都是npm
+
+    });
+</script>
+</body>
+</html>

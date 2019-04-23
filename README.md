@@ -941,6 +941,52 @@ var vue = new Vue({
             }
         }
 ```
+### 视频88重点
+computed,计算属性的使用，计算属性是一个函数，只不过我们在使用计算属性的时候，使用它们的名称，直接当做属性名来使用，并不会把计算属性当做方法来使用。
+``` 
+   //并不会把计算型属性当做方法来使用
+      computed:{
+            //1.注意，计算属性，在引用的时候，一定不要加(),在使用的时候，直接当做普通属性去使用即可。
+            //2.计算属性内部function用到的任何数据发生变化，就会重新计算属性的值。
+            //3.计算属性的求值结果会被缓存起来，方便下次调用。
+           'fullname':function () {
+                return this.firstname + "-" + this.lastname;
+            }
+            //计算属性和watch区别,计算属性内部得return一个值，watch不需要。
+          //methods 中 computed结果缓存。
+      }
+```
+fullname 通过计算属性通过计算firstname和lastname计算而得。因此在data中就不用定义。
+``` 
+ data:{
+            msg:"欢迎学习Vue", //data返回数据源
+            firstname:"",
+            lastname:""
+        },
+```
+data中只需要定义firstname和lastname即可。
+随后再v-model中绑定。
+``` 
+  <input type="text" v-model = "firstname" @keyup = "getfullname"> +
+    <input type="text" v-model = "lastname"> =
+    <input type="text" v-model = "fullname">
+```
+计算属性computed与watch和method的区别。
+ 1.注意，计算属性，在引用的时候，一定不要加(),在使用的时候，直接当做普通属性去使用即可。
+ 2.计算属性内部function用到的任何数据发生变化，就会重新计算属性的值。
+ 3.计算属性的求值结果会被缓存起来，方便下次调用。
+### 视频90重点
+nrm包的作用，是切换镜像。将国外npm包的镜像地址切换到国内的。加快速度。
+安装
+``` 
+npm install nrm -g
+```
+随后切换到淘宝
+``` 
+nrm use taobao
+```
+但使用的时候仍然是npm,npm install jquery,只不过下载镜像的地址是通过国内的淘宝地址。
+
 
 
 
