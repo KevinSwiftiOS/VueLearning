@@ -986,6 +986,75 @@ npm install nrm -g
 nrm use taobao
 ```
 但使用的时候仍然是npm,npm install jquery,只不过下载镜像的地址是通过国内的淘宝地址。
+### 视频91重点
+gulp 是基于任务进行构建
+webpack 基于整个项目进行构建，需要安装node js.
+
+### 视频92重点
+全局安装webpack
+npm install webpack -g
+
+webpack可以做
+1.webpack能处理js文件之间的互相依赖关系。
+2.webpack把浏览器兼容性语法降低，处理js兼容问题。
+把高级浏览器不识别语法转化成低级能够识别的。
+webpack基本使用方式
+``` 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--注意，不要在这里引用任何html和任何css文件-->
+    <script src = "../dist/bundle.js"></script>
+</head>
+
+<body>
+<ul>
+    <li>这是第1个li</li>
+    <li>这是第2个li</li>
+    <li>这是第3个li</li>
+    <li>这是第4个li</li>
+    <li>这是第5个li</li>
+
+</ul>
+</body>
+</html>
+
+```
+这是我们的index.html文件 默认以后导入的只有一个js文件，也就是我们打包后的文件.
+main.js是我们的入口文件。在main.js中编写代码。
+``` 
+//这是main.js 使我们项目的js入口文件
+//1.导入jquery 从node_modlues导入包，并且用$来接收
+//es6导入模块 由于es6代码太高级 浏览器解析不了 这一行执行会报错
+import $ from 'jquery';
+//const $ = require('jquery');
+
+
+$(function () {
+    //选择器
+    $('li:odd').css('backgroundColor','lightBlue'); //奇数行
+    $('li:even').css('backgroundColor',function () {
+        return '#' + 'D97634'
+    }); //偶数行
+
+});
+
+```
+main.js是我们的入口文件。用es6的语法导入jquery包，在其中做相关操作。
+当在index.html中直接引用main.js时，会出错，因为该文件中使用了es6的相关语法。低版本浏览器不支持。所以我们得使用webpack进行打包，打包成低版本浏览器支持的。
+打包的命令如下所示:
+运行命令格式
+webpack 要打包的文件的路径 打包好的输出文件的路径
+webpack4中还要指定mode 表明是开发模式还是发布模式
+webpack --mode=production ./src/main.js -o ./dist/bundle.js
+``` 
+webpack --mode=production ./src/main.js -o ./dist/bundle.js
+```
+表示源文件路径，和打包后的新文件路径。bundle.js就是我们要引用的。
+
+
 
 
 
