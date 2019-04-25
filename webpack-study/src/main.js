@@ -7,7 +7,7 @@ import $ from 'jquery';
 
 $(function () {
     //选择器
-    $('li:odd').css('backgroundColor','lightBlue'); //奇数行
+    $('li:odd').css('backgroundColor','green'); //奇数行
     $('li:even').css('backgroundColor',function () {
         return '#' + 'D97634'
     }); //偶数行

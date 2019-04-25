@@ -1053,10 +1053,16 @@ webpack --mode=production ./src/main.js -o ./dist/bundle.js
 webpack --mode=production ./src/main.js -o ./dist/bundle.js
 ```
 表示源文件路径，和打包后的新文件路径。bundle.js就是我们要引用的。
-
-
-
-
+### 视频94重点 webpack-dev-server的常用命令参数
+使用webpack-dev-server这个工具，实现自动打包编译的功能。
+1.运行npm i webpack-dev-server -d
+2.安装完毕后，这个工具用法和webpack用法一样。
+webpack-dev-server 输入即可。
+3.由于我们是在本地安装的webpack-dev-server 所以无法把他当做脚本命令，在终端中直接运行。
+只有安装到全局的，才能在终端中执行。
+5.webpack-dev-server 打包生成的bundle.js并没有在实际的物理磁盘中生成，直接放在内存中。
+6.我们可以认为，dev-server把打包好的文件以一种虚拟的形式托管到了项目的根目录中，虽然我们看不到他，但是我们认为dist src node_modules平级。
+webpack-dev-server --open --port 3000 --contentBase src  --hot 自动打开浏览器 修改成自己的3000 加载的根路径为src下的index.html文件 hot为热重载，热更新。
 
 
 
