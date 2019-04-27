@@ -1063,6 +1063,45 @@ webpack-dev-server 输入即可。
 5.webpack-dev-server 打包生成的bundle.js并没有在实际的物理磁盘中生成，直接放在内存中。
 6.我们可以认为，dev-server把打包好的文件以一种虚拟的形式托管到了项目的根目录中，虽然我们看不到他，但是我们认为dist src node_modules平级。
 webpack-dev-server --open --port 3000 --contentBase src  --hot 自动打开浏览器 修改成自己的3000 加载的根路径为src下的index.html文件 hot为热重载，热更新。
+### 视频95重点
+将index.html页面也加载到内存中使用。
+### 视频96重点 配置处理css样式表的第三方loader
+js中通过import导入
+``` 
+import './css/index.css'; //把样式表拿过来
+```
+注意：webpack只能默认打包处理js类型的文件，无法处理其他的非js类型的文件。
+合适的loader进行处理。处理非js文件。loader加载器。
+1.打包处理css文件，cnpm i style-loader,css-loader -d -d表示安装到开发环境。
+2.打开webpack.config.js,在里面新增配置节点，module,是一个对象，在module对象上有一个rules属性，为数组，这个数组中存放了所有第三方文件的匹配和处理规则。
+``` 
+modules:[
+{
+test: /\.css$/, //规定正则表达式,匹配css结尾的
+use:['style-loader','css-loader'] //配置处理css第三方文件 loader是从右到左调用的。先调用后面loader,再给前面的进一步处理。
+}
+]
+```
+loader调用过程
+1.发现这个要处理的文件不是css文件，随后去配置文件中，查找有没有对应的第三方loader规则，
+2.找到对应规则，调用对应的loader处理该文件类型。
+3.调用loader的时候，是从后向前调用的。
+4.当最后一个loader处理完毕，会把处理的结果，直接交给webpack进行打包合并，最终输出到bundle.js中。
+index.less 处理方式与css相同。
+``` 
+test: /\.css$/, //规定正则表达式,匹配css结尾的
+use:['style-loader','css-loader','less-loader'] //配置处理less的第三方文件 loader是从右到左调用的。先调用后面loader,再给前面的进一步处理。
+
+```
+scss文件处理方式相同。
+``` 
+import './css/index.scss'
+```
+先装包，再配置对应加载正则表达式。
+```
+use:['style-loader','css-loader','less-loader','sass-loader'] //配置处理less的第三方文件 loader是从右到左调用的。先调用后面loader,再给前面的进一步处理。
+
+```
 
 
 
