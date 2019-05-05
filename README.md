@@ -1102,6 +1102,60 @@ import './css/index.scss'
 use:['style-loader','css-loader','less-loader','sass-loader'] //配置处理less的第三方文件 loader是从右到左调用的。先调用后面loader,再给前面的进一步处理。
 
 ```
+### 视频101重点 webpack结合vue使用的总结
+1.安装vue的包：cnpm i vue -s
+2.由于在webpack中推荐使用.vue,定义组件，所以需要能解析.vue的loader,
+cnpm i vue-loader,vue-template-compiler -D
+3.在main.js中，导入vue模块，import Vue from 'vue'
+4.定义.vue结尾的组件 组件由三部分组成,template script style
+5.使用import导入这个组件 import login from './login.vue'
+6.使用vm的实例 var vm = new Vue({el:'#app',
+render: c => c(login)
+});
+7.在页面中创建一个id为app的div元素，作为我们vm实例要控制的区域。
 
+### 视频102重点 export使用
+注意，组件中的data必须是function
+```
+<script>
+export default{
+data() {
+return {
+msg:"123"
+}
+},
+method:{
+show() {
+console.log(this.msg)
+}
+}
+}
+```
+es6导入模块
+```
+import 模块名称 from '模块标识符'
+```
+es6中向外暴露成员
+``` 
+export default 和 export向外暴露成员
+```
 
+node 中 var 名称 = require('') module.exports 和exports来暴露
 
+export default向外暴露的成员，可以使用任意变量名来接收
+注意 在一个模块中，export default向外只能够暴露一次
+
+es6还提供了
+```
+export var title = "小新星"  //这种情况叫做按需导出
+export var content = '你你你'
+```
+接收
+```
+import {title,content} from './test.js'
+```
+使用export导出的成员必须按照导出时候的名字在花括号中接收
+可以使用 as 来起别名
+``` 
+import {title as title1} from './test.js'
+```
